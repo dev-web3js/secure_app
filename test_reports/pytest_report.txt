@@ -1,0 +1,231 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.3, pytest-6.2.5, py-1.11.0, pluggy-1.5.0
+rootdir: C:\Users\mosai\OneDrive\Desktop\secure_app
+collected 4 items
+
+tests\test_app.py .FFF                                                   [100%]
+
+================================== FAILURES ===================================
+_______________________________ test_user_post ________________________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_user_post(client):
+        response = client.post('/user/johndoe', json={"name": "johndoe"})
+>       assert response.status_code == 201
+E       assert 500 == 201
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+tests\test_app.py:16: AssertionError
+------------------------------ Captured log call ------------------------------
+ERROR    app:app.py:1457 Exception on /user/johndoe [POST]
+Traceback (most recent call last):
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_restful\__init__.py", line 489, in wrapper
+    resp = resource(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\views.py", line 84, in view
+    return current_app.ensure_sync(self.dispatch_request)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_restful\__init__.py", line 604, in dispatch_request
+    resp = meth(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: UserResource.post() got an unexpected keyword argument 'name'
+________________________________ test_user_get ________________________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_user_get(client):
+        client.post('/user/johndoe', json={"name": "johndoe"})
+        response = client.get('/user/johndoe')
+>       assert response.status_code == 200
+E       assert 500 == 200
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+tests\test_app.py:21: AssertionError
+------------------------------ Captured log call ------------------------------
+ERROR    app:app.py:1457 Exception on /user/johndoe [POST]
+Traceback (most recent call last):
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_restful\__init__.py", line 489, in wrapper
+    resp = resource(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\views.py", line 84, in view
+    return current_app.ensure_sync(self.dispatch_request)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_restful\__init__.py", line 604, in dispatch_request
+    resp = meth(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+TypeError: UserResource.post() got an unexpected keyword argument 'name'
+ERROR    app:app.py:1457 Exception on /user/johndoe [GET]
+Traceback (most recent call last):
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_restful\__init__.py", line 489, in wrapper
+    resp = resource(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\views.py", line 84, in view
+    return current_app.ensure_sync(self.dispatch_request)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_restful\__init__.py", line 604, in dispatch_request
+    resp = meth(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 121, in decorator
+    verify_jwt_in_request(optional, fresh, refresh, locations)
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 69, in verify_jwt_in_request
+    jwt_data, jwt_header, jwt_location = _decode_jwt_from_request(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 314, in _decode_jwt_from_request
+    raise NoAuthorizationError(errors[0])
+flask_jwt_extended.exceptions.NoAuthorizationError: Missing Authorization Header
+_____________________________ test_user_not_found _____________________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_user_not_found(client):
+        response = client.get('/user/janedoe')
+>       assert response.status_code == 404
+E       assert 500 == 404
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+tests\test_app.py:26: AssertionError
+------------------------------ Captured log call ------------------------------
+ERROR    app:app.py:1457 Exception on /user/janedoe [GET]
+Traceback (most recent call last):
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_restful\__init__.py", line 489, in wrapper
+    resp = resource(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\views.py", line 84, in view
+    return current_app.ensure_sync(self.dispatch_request)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_restful\__init__.py", line 604, in dispatch_request
+    resp = meth(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 121, in decorator
+    verify_jwt_in_request(optional, fresh, refresh, locations)
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 69, in verify_jwt_in_request
+    jwt_data, jwt_header, jwt_location = _decode_jwt_from_request(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 314, in _decode_jwt_from_request
+    raise NoAuthorizationError(errors[0])
+flask_jwt_extended.exceptions.NoAuthorizationError: Missing Authorization Header
+============================== warnings summary ===============================
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:958
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:958
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:958
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:958
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:958
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:958
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:958
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:958: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    inlocs = ast.Compare(ast.Str(name.id), [ast.In()], [locs])
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:961
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:961
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:961
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:961
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:961
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:961
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:961: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    expr = ast.IfExp(test, self.display(name), ast.Str(name.id))
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1071
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1071
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1071
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1071
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1071
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1071
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1071: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    syms.append(ast.Str(sym))
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1073
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1073
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1073
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1073
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1073
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1073
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:1073: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    expls.append(ast.Str(expl))
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:823: 24 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:823: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    keys = [ast.Str(key) for key in current.keys()]
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:933
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:933
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:933
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:933
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:933
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:933
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:933: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    assertmsg = ast.Str("")
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:935
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:935
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:935
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:935
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:935
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:935
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:935: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    template = ast.BinOp(assertmsg, ast.Add(), ast.Str(explanation))
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:947
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:947
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:947
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:947
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:947
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:947
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:947
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:947: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    clear = ast.Assign(variables, ast.NameConstant(None))
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1009: 12 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1009: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    parts = parts or [ast.Str("")]
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1006: 26 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1006: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    _convert(elem) if is_dynamic else ast.Str(s=elem)
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\ast.py:587: 26 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\ast.py:587: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
+    return Constant(*args, **kwargs)
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1013: 32 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1013: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    if isinstance(p, ast.Str) and isinstance(ret[-1], ast.Str):
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1014: 28 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1014: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
+    ret[-1] = ast.Str(ret[-1].s + p.s)
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1014: 14 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1014: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    ret[-1] = ast.Str(ret[-1].s + p.s)
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_app.py::test_user_post - assert 500 == 201
+FAILED tests/test_app.py::test_user_get - assert 500 == 200
+FAILED tests/test_app.py::test_user_not_found - assert 500 == 404
+================== 3 failed, 1 passed, 206 warnings in 0.51s ==================
