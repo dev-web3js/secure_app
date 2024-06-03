@@ -1,0 +1,40 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.3, pytest-6.2.5, py-1.11.0, pluggy-1.5.0
+rootdir: C:\Users\mosai\OneDrive\Desktop\secure_app
+collected 4 items
+
+tests\test_app.py ....                                                   [100%]
+
+============================== warnings summary ===============================
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1009: 15 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1009: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    parts = parts or [ast.Str("")]
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1006: 28 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1006: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    _convert(elem) if is_dynamic else ast.Str(s=elem)
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\ast.py:587: 28 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\ast.py:587: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
+    return Constant(*args, **kwargs)
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1013: 30 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1013: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    if isinstance(p, ast.Str) and isinstance(ret[-1], ast.Str):
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1014: 28 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1014: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
+    ret[-1] = ast.Str(ret[-1].s + p.s)
+
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1014: 14 warnings
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\werkzeug\routing.py:1014: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    ret[-1] = ast.Str(ret[-1].s + p.s)
+
+tests/test_app.py::test_user_login
+tests/test_app.py::test_create_product
+tests/test_app.py::test_create_order
+  C:\Users\mosai\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_bcrypt.py:193: DeprecationWarning: 'safe_str_cmp' is deprecated and will be removed in Werkzeug 2.1. Use 'hmac.compare_digest' instead.
+    return safe_str_cmp(bcrypt.hashpw(password, pw_hash), pw_hash)
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+======================= 4 passed, 146 warnings in 0.80s =======================
